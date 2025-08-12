@@ -21,16 +21,16 @@
 
 <body class="bg-[#F8FAFF] min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#6B73FF] to-[#000DFF] text-white select-none">
+    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#6B73FF] to-[#000DFF] text-white">
         <div class="px-5 py-6 flex flex-col gap-1">
             <div class="flex items-center gap-2">
                 <i class="fas fa-graduation-cap text-black text-xl">
                 </i>
-                <h1 class="font-semibold text-lg leading-5">
+                <h1 class="font-semibold text-lg">
                     Phòng Khảo Thí
                 </h1>
             </div>
-            <p class="text-xs font-normal opacity-70 leading-4">
+            <p class="text-xs font-normal opacity-70">
                 Hệ thống quản lý phúc khảo
             </p>
         </div>
@@ -51,7 +51,7 @@
                 Xử lý yêu cầu
             </a>
             <a class="flex items-center gap-3 px-4 py-2 rounded-md text-white text-sm font-medium leading-5 opacity-80 hover:opacity-100 transition"
-                href="#">
+                href="SummaryOfPoint.html">
                 <i class="fas fa-users text-gray-200"></i>
                 Tổng hợp điểm
             </a>
@@ -111,7 +111,7 @@
                             ↗ 8%
                         </span>
                         so với tháng trước
-                        
+
                     </p>
                 </div>
                 <div class="flex-1 min-w-[160px] max-w-xs bg-white rounded-xl p-4 shadow-sm">
@@ -129,7 +129,7 @@
                             ↘ 3%
                         </span>
                         so với tháng trước
-                       
+
                     </p>
                 </div>
                 <div class="flex-1 min-w-[160px] max-w-xs bg-white rounded-xl p-4 shadow-sm">
@@ -137,7 +137,7 @@
                         <p class="text-xs font-medium text-gray-600">
                             Chờ xử lý
                         </p>
-                       <i class="fas fa-clock text-blue-600"></i>
+                        <i class="fas fa-clock text-blue-600"></i>
                     </div>
                     <p class="text-2xl font-semibold text-[#3B4A6B] leading-8">
                         2
@@ -171,17 +171,18 @@
                             Năm 2023
                         </option>
                     </select>
-                   
+
                 </div>
-                <div class="h-40 bg-[#F8FAFF] rounded-md border border-gray-100 w-full flex flex-col justify-center space-y-2 px-2"> 
-                        <div class="bg-green-400 h-6 w-[90%]">
-                        </div>
-                        <div class="bg-red-400 h-6 w-[85%]">
-                        </div>
-                        <div class="bg-purple-400 h-6 w-[95%]">
-                        </div>
-                        <div class="bg-yellow-300 h-6 w-[90%]">
-                        </div>
+                <div
+                    class="h-40 bg-[#F8FAFF] rounded-md border border-gray-100 w-full flex flex-col justify-center space-y-2 px-2">
+                    <div class="bg-green-400 h-6 w-[90%]">
+                    </div>
+                    <div class="bg-red-400 h-6 w-[85%]">
+                    </div>
+                    <div class="bg-purple-400 h-6 w-[95%]">
+                    </div>
+                    <div class="bg-yellow-300 h-6 w-[90%]">
+                    </div>
                 </div>
             </section>
             <!-- Chart 2 container -->
@@ -206,41 +207,36 @@
                         </option>
                     </select>
                 </div>
-                <div class="h-40 bg-[#F8FAFF] rounded-md border border-gray-100 w-full flex flex-col justify-center space-y-2 px-2"> 
-                        <div class="bg-green-400 h-6 w-[90%]">
-                        </div>
-                        <div class="bg-red-400 h-6 w-[85%]">
-                        </div>
-                        <div class="bg-purple-400 h-6 w-[95%]">
-                        </div>
-                        <div class="bg-yellow-300 h-6 w-[90%]">
-                        </div>
+                <div
+                    class="h-40 bg-[#F8FAFF] rounded-md border border-gray-100 w-full flex flex-col justify-center space-y-2 px-2">
+                    <div class="bg-green-400 h-6 w-[90%]">
+                    </div>
+                    <div class="bg-red-400 h-6 w-[85%]">
+                    </div>
+                    <div class="bg-purple-400 h-6 w-[95%]">
+                    </div>
+                    <div class="bg-yellow-300 h-6 w-[90%]">
+                    </div>
                 </div>
             </section>
-             <section class="bg-white rounded-xl p-4 shadow-sm max-w-full overflow-hidden">
+            <section class="bg-white rounded-xl p-4 shadow-sm max-w-full overflow-hidden">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="text-sm font-medium text-gray-700 flex items-center gap-1">
                         <i class="fas fa-download"></i>
                         Tải xuống báo cáo
                     </h3>
                 </div>
-                 <div class="flex space-x-20 items-center justify-center">
-                        <button
-                            class="bg-blue-900 text-white text-xl font-Quicksand px-3 py-1 rounded"
-                            type="button">
-                            Báo cáo tháng
-                        </button>
-                        <button
-                            class="bg-blue-900 text-white text-xl font-Quicksand px-3 py-1 rounded"
-                            type="button">
-                            Báo cáo học kỳ
-                        </button>
-                        <button
-                            class="bg-blue-900 text-white text-xl font-Quicksand px-3 py-1 rounded"
-                            type="button">
-                            Báo cáo năm học
-                        </button>
-                    </div>
+                <div class="flex space-x-20 items-center justify-center">
+                    <button class="bg-blue-500 hover:bg-gradient-to-br from-blue-500 to-blue-600 text-white text-xl font-Quicksand px-3 py-1 rounded" type="button">
+                        Báo cáo tháng
+                    </button>
+                    <button class="bg-blue-500 hover:bg-gradient-to-br from-blue-500 to-blue-600 text-white text-xl font-Quicksand px-3 py-1 rounded" type="button">
+                        Báo cáo học kỳ
+                    </button>
+                    <button class="bg-blue-500 hover:bg-gradient-to-br from-blue-500 to-blue-600 text-white text-xl font-Quicksand px-3 py-1 rounded" type="button">
+                        Báo cáo năm học
+                    </button>
+                </div>
             </section>
         </section>
     </main>
