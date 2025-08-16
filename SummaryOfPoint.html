@@ -19,10 +19,10 @@
 
 <body class="bg-[#F8FAFF] min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#6B73FF] to-[#000DFF] text-white">
+    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#667eea] to-[#764ba2] text-white">
         <div class="px-5 py-6 flex flex-col gap-1">
             <div class="flex items-center gap-2">
-                <i class="fas fa-graduation-cap text-black text-xl"></i>
+                <i class="fas fa-graduation-cap text-white text-xl"></i>
                 <h1 class="font-semibold text-lg">Phòng Khảo Thí</h1>
             </div>
             <p class="text-xs font-normal opacity-70">
@@ -76,18 +76,18 @@
                         <div class="relative">
                             <i
                                 class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" placeholder="Tìm kiếm yêu cầu..."
+                            <input id="searchInput" type="text" placeholder="Tìm kiếm yêu cầu..."
                                 class="w-full pl-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
-                    <select
+                    <select id="statusFilter"
                         class="border border-gray-300 rounded-lg text-gray-700 font-normal focus:outline-none px-4 py-2.5 focus:ring-2 focus:ring-blue-500 min-w-[150px]">
                         <option value="">Tất cả trạng thái</option>
-                        <option value="new">Mới nhận</option>
-                        <option value="processed">Đã xử lý</option>
-                        <option value="sent">Đã gửi PDT</option>
+                        <option value="Mới nhận">Mới nhận</option>
+                        <option value="Đã xử lý">Đã xử lý</option>
+                        <option value="Đã gửi PDT">Đã gửi PDT</option>
                     </select>
-                    <button
+                    <button id="btnFilter"
                         class="bg-blue-600 hover:bg-blue-700 rounded-lg px-4 py-2.5 text-white font-medium transition-colors duration-200 flex items-center gap-2">
                         <i class="fas fa-filter"></i>
                         Lọc
@@ -109,9 +109,8 @@
                     </button>
                 </div>
 
-                <div
-                    class="max-h-[600px] overflow-y-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                    <table class="w-full">
+                <div class="max-h-[600px] overflow-y-auto bg-white rounded-xl shadow-lg border border-gray-200">
+                    <table id="requestTable" class="w-full">
                         <thead class="sticky top-0 bg-gray-50 border-b border-gray-200">
                             <tr>
                                 <th
@@ -165,7 +164,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
+                            <tr data-status="Mới nhận">
                                 <td class="px-6 py-4 whitespace-nowrap"> <!-- ko cho phep xuong dong -->
                                     <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
                                 </td>
@@ -224,7 +223,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-status="Đã xử lý">
                                 <td class="px-6 py-4 whitespace-nowrap"> <!-- ko cho phep xuong dong -->
                                     <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
                                 </td>
@@ -247,7 +246,7 @@
                                             <span class="text-white text-xs font-semibold">NV</span>
                                         </div>
                                         <div>
-                                            <div class="text-sm font-medium text-gray-900">GV.Nguyễn Văn A</div>
+                                            <div class="text-sm font-medium text-gray-900">GV.Nguyễn Văn B</div>
                                             <div class="text-xs  text-gray-500">MGV:123456</div>
                                         </div>
                                     </div>
@@ -283,7 +282,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-status="Đã gửi PDT">
                                 <td class="px-6 py-4 whitespace-nowrap"> <!-- ko cho phep xuong dong -->
                                     <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
                                 </td>
@@ -306,7 +305,7 @@
                                             <span class="text-white text-xs font-semibold">NV</span>
                                         </div>
                                         <div>
-                                            <div class="text-sm font-medium text-gray-900">GV.Nguyễn Văn A</div>
+                                            <div class="text-sm font-medium text-gray-900">GV.Nguyễn Văn C</div>
                                             <div class="text-xs  text-gray-500">MGV:123456</div>
                                         </div>
                                     </div>
@@ -342,16 +341,54 @@
                                     </div>
                                 </td>
                             </tr>
-                            
-                            
 
                         </tbody>
                     </table>
-
+                    <div id="noResults" class="text-center p-12 text-gray-700" style="display: none;">
+                        <i class="fas fa-search mb-2 text-2xl opacity-50"></i>
+                        <p class="font-size: 1.125rem; margin-bottom: 0.5rem;">Không tìm thấy kết quả phù hợp</p>
+                        <p class="font-size: 0.875rem; color: #9ca3af;">Thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm</p>
+                    </div>
                 </div>
             </section>
         </section>
     </main>
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const statusFilter = document.getElementById("statusFilter");
+        const filterBtn = document.getElementById("btnFilter");
+        const requestTable = document.getElementById("requestTable");
+        const noResults = document.getElementById("noResults");
+
+        const rows = Array.from(requestTable.querySelectorAll("tbody tr"));
+
+        function applyFilters() {
+            const searchText = searchInput.value.toLowerCase().trim();
+            const statusValue = statusFilter.value.toLowerCase().trim();
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const rowText = row.innerText.toLowerCase();
+                const rowStatus = (row.getAttribute("data-status") || "").toLowerCase().trim();
+
+                const matchSearch = rowText.includes(searchText);
+                const matchStatus = !statusValue || rowStatus === statusValue;
+                if (matchSearch && matchStatus) {
+                    row.style.display = "";
+                    visibleCount++;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            if (visibleCount === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+            
+        }
+        }
+    searchInput.addEventListener("input", applyFilters);
+    filterBtn.addEventListener("click", applyFilters);
+    </script>
 </body>
 
 </html>

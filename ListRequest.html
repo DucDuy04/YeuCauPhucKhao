@@ -16,15 +16,16 @@
             font-family: 'Inter', sans-serif;
             font-family: 'Quicksand', sans-serif;
         }
+        
     </style>
 </head>
 
 <body class="bg-[#F8FAFF] min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#6B73FF] to-[#000DFF] text-white">
+    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#667eea] to-[#764ba2] text-white">
         <div class="px-5 py-6 flex flex-col gap-1">
             <div class="flex items-center gap-2">
-                <i class="fas fa-graduation-cap text-black text-xl">
+                <i class="fas fa-graduation-cap text-white text-xl">
                 </i>
                 <h1 class="font-semibold text-lg">
                     Phòng Khảo Thí
@@ -66,7 +67,7 @@
     <main class="flex-1 flex flex-col">
         <!-- Header -->
         <header class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200">
-            <h2 class="text-black-100 font-Quicksand font-bold text-3xl leading-8">
+            <h2 class="text-black-100 font-Quicksand font-bold text-3xl">
                 Danh sách yêu cầu
             </h2>
             <div
@@ -87,27 +88,27 @@
                         <div class="relative">
                             <i
                                 class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" placeholder="Tìm kiếm yêu cầu..."
+                            <input id="searchInput" type="text" placeholder="Tìm kiếm yêu cầu..."
                                 class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm font-normal text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         </div>
                     </div>
-                    <select
+                    <select id="statusFilter"
                         class="border border-gray-300 rounded-lg text-sm font-normal text-gray-700 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[150px]">
                         <option value="">Tất cả trạng thái</option>
-                        <option value="pending">Chờ xử lí</option>
-                        <option value="processing">Chờ GV chấm</option>
-                        <option value="approved">Đã duyệt</option>
-                        <option value="rejected">Từ chối</option>
+                        <option value="Chờ xử lí">Chờ xử lí</option>
+                        <option value="Chờ GV chấm">Chờ GV chấm</option>
+                        <option value="Đã duyệt">Đã duyệt</option>
+                        <option value="Từ chối">Từ chối</option>
                     </select>
-                    <select
+                    <select id="subjectFilter"
                         class="border border-gray-300 rounded-lg text-sm font-normal text-gray-700 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[150px]">
                         <option value="">Tất cả môn học</option>
-                        <option value="math">Toán học</option>
-                        <option value="literature">Văn học</option>
-                        <option value="physics">Vật lý</option>
-                        <option value="chemistry">Hóa học</option>
+                        <option value="Giải Tích">Giải Tích</option>
+                        <option value="Kỹ thuật lập trình">Kỹ thuật lập trình</option>
+                        <option value="OOP">OOP</option>
+                        <option value="Toán rời rạc">Toán rời rạc</option>
                     </select>
-                    <button
+                    <button id="btnFilter"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2">
                         <i class="fas fa-filter"></i>
                         Lọc
@@ -118,11 +119,11 @@
                 <!-- Table Container -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
                     <!-- Table Header -->
-                    <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 border-b">
+                    <div class="px-6 py-4 bg-gradient-to-b from-[#667eea] to-[#764ba2] border-b">
                         <div class="flex justify-between">
                             <h2 class="text-lg font-semibold text-white font-quicksand">Danh Sách Yêu Cầu Phúc Khảo</h2>
                             <div class="flex ">
-                                <div class="bg-white/20 px-3 py-1 rounded-full text-white text-sm">
+                                <div id="totalCount"class="bg-white/20 px-3 py-1 rounded-full text-white text-sm">
                                     <i class="fas fa-clipboard-list mr-1"></i>
                                     Tổng: 4 yêu cầu
                                 </div>
@@ -132,7 +133,7 @@
 
                     <!-- Table -->
                     <div class="overflow-x-auto">
-                        <table class="w-full">
+                        <table id="requestTable" class="w-full">
                             <thead class="bg-gray-50 border-b border-gray-200">
                                 <tr>
                                     <th
@@ -180,7 +181,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <!-- Row 1 -->
-                                <tr class="hover-row">
+                                <tr data-status="Chờ xử lí" data-subject="Giải Tích" class="hover-row">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-2 h-8 bg-blue-500 rounded-l mr-3"></div>
@@ -242,8 +243,8 @@
                                     </td>
                                 </tr>
 
-                                <!-- Row 2 -->
-                                <tr class="hover-row">
+
+                                <tr data-status="Chờ GV chấm" data-subject="Kỹ thuật lập trình" class="hover-row">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-2 h-8 bg-orange-500 rounded-l mr-3"></div>
@@ -305,8 +306,8 @@
                                     </td>
                                 </tr>
 
-                                <!-- Row 3 -->
-                                <tr class="hover-row">
+                                
+                                <tr data-status="Đã duyệt" data-subject="OOP" class="hover-row">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-2 h-8 bg-green-500 rounded-l mr-3"></div>
@@ -368,8 +369,8 @@
                                     </td>
                                 </tr>
 
-                                <!-- Row 4 -->
-                                <tr class="hover-row">
+                                
+                                <tr data-status="Từ chối" data-subject="Toán rời rạc" class="hover-row">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-2 h-8 bg-red-500 rounded-l mr-3"></div>
@@ -432,6 +433,11 @@
                                 </tr>
                             </tbody>
                         </table>
+                            <div id="noResults" class="text-center p-12 text-gray-700" style="display: none;">
+                                <i class="fas fa-search mb-2 text-2xl opacity-50"></i>
+                                <p class="font-size: 1.125rem; margin-bottom: 0.5rem;">Không tìm thấy kết quả phù hợp</p>
+                                <p class="font-size: 0.875rem; color: #9ca3af;">Thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm</p>
+                            </div>
                     </div>
 
                     <!-- Pagination -->
@@ -439,7 +445,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center text-sm text-gray-500">
                                 <i class="fas fa-info-circle mr-2"></i>
-                                Hiển thị 1-4 trong tổng số 4 kết quả
+                                <span class="paginationInfo">Hiển thị 1-4 trong tổng số 4 kết quả</span>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <button
@@ -472,6 +478,55 @@
             </section>
         </section>
     </main>
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const subjectFilter = document.getElementById("subjectFilter");
+    const filterBtn = document.getElementById("btnFilter");
+    const requestTable = document.getElementById("requestTable");
+    const noResults = document.getElementById("noResults");
+    const paginationInfo = document.querySelector(".paginationInfo");
+
+    const rows = Array.from(requestTable.querySelectorAll("tbody tr"));
+
+    function applyFilters() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        const statusValue = statusFilter.value.toLowerCase().trim();
+        const subjectValue = subjectFilter.value.toLowerCase().trim();
+         let visibleCount = 0;
+        rows.forEach(row => {
+            const rowText = row.innerText.toLowerCase();
+            const rowStatus = (row.getAttribute("data-status") || "").toLowerCase().trim();
+            const rowSubject = (row.getAttribute("data-subject") || "").toLowerCase().trim();
+
+            const matchSearch = rowText.includes(searchText);
+            const matchStatus = !statusValue || rowStatus === statusValue;
+            const matchSubject = !subjectValue || rowSubject === subjectValue;
+
+        
+            if (matchSearch && matchStatus && matchSubject) {
+                row.style.display = "";
+                visibleCount++;
+            } else {
+                row.style.display = "none";
+                paginationInfo.textContent = "Không có kết quả nào";
+            }
+        });
+        if (visibleCount === 0) {
+            noResults.style.display = "block";
+           // paginationInfo.style.display = "none";// ẩn dòng tổng số
+        } else {
+            noResults.style.display = "none";
+            paginationInfo.style.display = "block";// hiện lại khi có kết quả
+            paginationInfo.textContent = `Hiển thị ${visibleCount} trong tổng số ${rows.length} kết quả`;
+        }
+    }
+    searchInput.addEventListener("input", applyFilters);
+    filterBtn.addEventListener("click", applyFilters);
+</script>
+
+
+
 </body>
 
 </html>

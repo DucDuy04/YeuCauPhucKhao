@@ -21,10 +21,10 @@
 
 <body class="bg-[#F8FAFF] min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#6B73FF] to-[#000DFF] text-white">
+    <aside class="w-56 flex flex-col bg-gradient-to-b from-[#667eea] to-[#764ba2] text-white">
         <div class="px-5 py-6 flex flex-col gap-1">
             <div class="flex items-center gap-2">
-                <i class="fas fa-graduation-cap text-black text-xl">
+                <i class="fas fa-graduation-cap text-white text-xl">
                 </i>
                 <h1 class="font-semibold text-lg">
                     Phòng Khảo Thí
@@ -66,7 +66,7 @@
     <main class="flex-1 flex flex-col">
         <!-- Header -->
         <header class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200">
-            <h2 class="text-black-100 font-Quicksand font-bold text-3xl leading-8">
+            <h2 class="text-black-100 font-Quicksand font-bold text-3xl">
                 Xử lý yêu cầu phúc khảo
             </h2>
             <div
@@ -81,16 +81,16 @@
             <div class="w-1/2 min-w-[300px]">
                 <div class="relative">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Tìm kiếm yêu cầu chờ xử lí..."
+                    <input id="searchInput" type="text" placeholder="Tìm kiếm yêu cầu theo mã (VD: PK01)..."
                         class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm font-normal text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
             </div>
-            <div class="mt-6">
+            <div class="mt-6 request-card">
                 <!-- Mỗi card là một yêu cầu -->
                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 ">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h2 class="text-xl font-semibold text-gray-800">Yêu cầu #PK01</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">#PK01</h2>
                             <p class="text-x text-gray-500 mt-1">Nguyễn Văn A(22T1020)</p>
                             <p class="text-x text-gray-500 mt-1">Môn học: Toán</p>
                             <p class="text-x text-gray-500 mt-1">Ngày yêu cầu: 01/08/2025</p>
@@ -127,12 +127,12 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-6">
+            <div class="mt-6 request-card">
                 <!-- Mỗi card là một yêu cầu -->
                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 ">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h2 class="text-xl font-semibold text-gray-800">Yêu cầu #PK01</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">#PK02</h2>
                             <p class="text-x text-gray-500 mt-1">Nguyễn Văn A(22T1020)</p>
                             <p class="text-x text-gray-500 mt-1">Môn học: Toán</p>
                             <p class="text-x text-gray-500 mt-1">Ngày yêu cầu: 01/08/2025</p>
@@ -172,3 +172,25 @@
 
 
         </section>
+    </main>
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const requestCards = document.querySelectorAll(".request-card"); // gán class riêng cho card
+
+        searchInput.addEventListener("input", () => {
+            const searchText = searchInput.value.toLowerCase().trim();
+
+            requestCards.forEach(card => {
+                const code = card.querySelector("h2").innerText.toLowerCase(); // lấy text #PK01
+                if (code.includes(searchText)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
